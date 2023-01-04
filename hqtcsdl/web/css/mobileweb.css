@@ -1,0 +1,20 @@
+.img:hover{
+	margin-top:10px !important;
+	transition:0.4s;
+}
+.footer_title {
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 500;
+    font-family: "Oswald",sans-serif;
+    text-transform: capitalize;
+    color: #fff;
+    margin-bottom: 28px;
+}
+.footer_title.large_title {
+    font-size: 36px;
+    font-weight: 600;
+}
+.tp_widgets p {
+    color: #7b838a;
+}

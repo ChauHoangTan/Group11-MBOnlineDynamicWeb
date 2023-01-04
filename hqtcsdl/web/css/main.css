@@ -1,0 +1,15 @@
+:root {
+    --blue: #0569d7;
+    --white: #ffffff;
+    --black: #001427;
+    --orange: #ff6700;
+    --body-text: #333333;
+    --footer-text: #C0BEBE;
+    --star: #b8882e;
+    --body-bg: rgb(192, 192, 192);
+    --section-bg: #292c61;
+    --section-bg2: #87815f;
+}
+body {
+    background-color: #e7f4f8 !important;
+}
