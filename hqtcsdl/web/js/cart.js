@@ -2,8 +2,7 @@
 var product = [];
 $(document).ready(function() {
 	product = JSON.parse(JSON.stringify(html));
-	
-	totalPrice=JSON.parse(totalPrice);
+
 });
 
 
@@ -13,8 +12,7 @@ function plusAmount(id) {
 	if (!isNaN(sl_val)) {
 		sl.val(Number(sl.val()) + 1);
 		updateProductOnCart(id, 1);
-		var str = Number(updateTotal(id, 1));
-		$("#totalPrice" + id).html(str.toLocaleString("en") + 'đ');
+		updateTotal(id, 1)
 	}
 
 }
@@ -24,8 +22,8 @@ function subAmount(id) {
 	if (!isNaN(sl_val) & sl_val > 0) {
 		sl.val(Number(sl.val()) - 1);
 		updateProductOnCart(id, -1);
-		var str = Number(updateTotal(id, -1));
-		$("#totalPrice" + id).html(str.toLocaleString("en") + 'đ');
+		updateTotal(id, -1);
+
 	}
 	return false;
 }
@@ -33,13 +31,24 @@ function subAmount(id) {
 
 function updateTotal(id, amount) {
 	var total = 0;
+
+	//var temp  =product[id].price * product[id].amount;
+	//alert(temp);
+	$("#total" + id).html("hello");
+	//$("#total"+id).html((product[id].price * product[id].amount).toLocaleString("en") + 'đ');
 	for (var i = 0; i < product.length; i++) {
 		if (product[i].id == id) {
 			product[i].amount += amount;
-			total = product[i].price * product[i].amount;
-			totalPrice += product[i].price;
-			$("#totalPrice").html(totalPrice.toLocaleString("en") + 'đ');
+			$("#total" + id).html((product[i].price * product[i].amount).toLocaleString("en") + 'đ');
+
 		}
+	}
+
+	for (var i = 0; i < product.length; i++) {
+
+		total += product[i].price * product[i].amount;
+		$("#totalPrice").html(total.toLocaleString("en") + 'đ');
+		//alert(total);
 	}
 	return total;
 }

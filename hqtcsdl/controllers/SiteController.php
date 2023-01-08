@@ -10,6 +10,7 @@ use app\models\ContactForm;
 use app\models\Newuser;
 use app\models\Product;
 use app\models\Productdetail;
+use app\models\Img;
 class SiteController extends Controller
 {
 
@@ -65,26 +66,62 @@ class SiteController extends Controller
          * $user->update();
          * }
          */
-        $amount = 8;
-        
-        $noibat = Product::ProductNoiBat($amount);
-       
+        $amount = 4;
+
         return $this->render('index', [
-            'products' => $noibat,
-        
+
+            'amount' => 4,
+            'type' => ''
         ]);
     }
 
-    public function actionProductdetail($id){
-        $productDetail=Productdetail::findOne($id);
-        return $this->render('productdetail', [
-            'productdetails'=> $productDetail
+    public function actionDefaulamountshow()
+    {
+        Yii::$app->session['amount'] = 4;
+    }
+
+    public function actionContent()
+    {
+        $amount = 4;
+        $type = 'SORT_DESC';
+        if (isset($_POST["type"])) {
+            $type = $_POST["type"];
+        }
+        if (isset(Yii::$app->session['amount'])) {
+            Yii::$app->session['amount'] += 4;
+            $amount = Yii::$app->session['amount'];
+        } else {
+            Yii::$app->session['amount'] = 4;
+        }
+        $check = ($amount < count(Product::find()->all())) ? 1 : 0;
+        $noibat = Product::ProductNoiBat($amount, $type);
+        return $this->renderAjax('content', [
+            'url' => Yii::$app->homeUrl,
+            'products' => $noibat,
+            'check' => $check 
         ]);
     }
-    
-    
-    
-    
+
+    public function actionProductdetail($id)
+    {
+        $product=Product::findOne($id);
+        $productDetail=Productdetail::getProductDetail($id);
+        $imgProduct=Img::find()->where('ID_PROC='.$id)->all();
+        $type = 'SORT_DESC';
+        $noibat = Product::ProductNoiBat(4, $type);
+        $products=$this->renderAjax('content2', [
+            'url' => Yii::$app->homeUrl,
+            'products' => $noibat,
+            'check' => 1
+        ]);
+        return $this->render('productdetail', [
+            'productdetails' => $productDetail,
+            'product'=>   $product,
+            'img'=>$imgProduct,
+            'listproduct'=>$products
+        ]);
+    }
+
     public function actionAddProductToCart($id)
     {
         $session = Yii::$app->session;
@@ -121,68 +158,66 @@ class SiteController extends Controller
         $session->close();
         if (isset($session['cart'])) {
             $cart = $session['cart'];
-            $products = MonAn::find()->all();
+            $products = Product::find()->all();
             $response = array();
-            foreach ($cart as $key=>$value) {
+            foreach ($cart as $key => $value) {
                 foreach ($products as $product) {
-                    if ($key ==$product["ID_MON_AN"]) {
+                    if ($key == $product["ID_PROC"]) {
                         $productinfo = [
-                            "id" => $product["ID_MON_AN"],
-                            "name" => $product["TENMON"],
-                            "price" => $product["GIA"],
-                            "image" => '',
+                            "id" => $product["ID_PROC"],
+                            "name" => $product["NAME_PROC"],
+                            "price" => $product["PRICE"],
+                            "image" => $product["img"],
                             "configuration" => '',
-                            "amount" => $value,
+                            "amount" => $value
                         ];
-                        array_push($response,$productinfo );
+                        array_push($response, $productinfo);
                     }
-                   
                 }
             }
-                return $this->render('cart', [
-                    'products' =>$response,
-                    'session' => $session['cart']
-                  
-                ]);
-            }
-
             return $this->render('cart', [
-                'products' => "",
-                'session' => ""
+                'products' => $response,
+                'session' => $session['cart']
             ]);
         }
-    
+
+        return $this->render('cart', [
+            'products' => "",
+            'session' => ""
+        ]);
+    }
 
     /**
      * Login action.
      *
      * @return Response|string
-     */public function actionUpdateProductOnCart($id, $val)
-     {
-         $session = Yii::$app->session;
-         $session->open();
-         if (isset($session['cart'])) {
-             $cart = $session['cart'];
-             foreach ($cart as $key => $value) {
-                 // sản phẩm đã được thêm vào trước đó
-                 if ($key == $id) {
-                     $cart[$id] += $val;
-                 }
-             }
-             $session['cart'] = $cart;
-             // kiểm tra có sản phẩm nào bằng 0 thì xóa khỏi giỏ hàng
-             foreach ($cart as $key => $value) {
-                 if ($value == 0) {
-                     unset($cart[$key]);
-                     $this->redirect([
-                         'cart'
-                     ]);
-                 }
-             }
-             $session['cart'] = $cart;
-         }
-         return $this->redirect(['site/cart']);
+     */
+    public function actionUpdateProductOnCart($id, $val)
+    {
+        $session = Yii::$app->session;
+        $session->open();
+        if (isset($session['cart'])) {
+            $cart = $session['cart'];
+            foreach ($cart as $key => $value) {
+                // sản phẩm đã được thêm vào trước đó
+                if ($key == $id) {
+                    $cart[$id] += $val;
+                }
+            }
+            $session['cart'] = $cart;
+            // kiểm tra có sản phẩm nào bằng 0 thì xóa khỏi giỏ hàng
+            foreach ($cart as $key => $value) {
+                if ($value == 0) {
+                    unset($cart[$key]);
+                    $this->redirect([
+                        'cart'
+                    ]);
+                }
+            }
+            $session['cart'] = $cart;
         }
+    }
+
     public function actionLogin()
     {
         if (! Yii::$app->user->isGuest) {
