@@ -10,78 +10,13 @@
 		.fail(function() {
 
 		});
-}*/
-function addProductToCart(id) {
-
+}	
+function addProductToCart(id ){
+	
 	$.get({
 		url: baseUrl + controllerId + "/add-product-to-cart?id=" + id
 
-	}).done(function(html) {
-		alert('Đã thêm sản phẩm vào giỏ hàng');
-		if( JSON.parse(html)!=0){
-			$("#cartAmount").html(JSON.parse(html));
-		}
-	})
-
-}
-
-var products = [];
-$(document).ready(function() {
-	//products = JSON.parse(JSON.stringify(html));
-	sortProductbyPrice('');
-	
-});
-
-function sortProductbyPrice() {
-
-	var formData = {};
-	formData["type"] = $("#myselect option:selected").val();
-	//alert($("#myselect option:selected").val());
-	$.post({
-		url: baseUrl + controllerId + "/content",
-		data: formData,
-	}).done(function(html) {
-		//alert(html);
-		display(html);
-	})
-		.fail(function() {
-
-		});
-}
-function display(data) {
-	$("#content").empty();
-
-	$("#content").html(data);
-}
-function moreProduct() {
-
-	var formData = {};
-	formData["type"] = $("#myselect option:selected").val();
-	//alert($("#myselect option:selected").val());
-	$.post({
-		url: baseUrl + controllerId + "/content",
-		data: formData,
-	}).done(function(html) {
-		//alert(html);
-		display(html);
-	})
-		.fail(function() {
-
-		});
-}
-function defaulamountshow() {
-
-	var formData = {};
-	formData["type"] = $("#myselect option:selected").val();
-	//alert($("#myselect option:selected").val());
-	$.post({
-		url: baseUrl + controllerId + "/defaulamountshow",
-		data: formData,
-	}).done(function() {
-		sortProductbyPrice();
-		$("#changeAmountShow").focus();
-	})
-		.fail(function() {
-
-		});
+		}).done(function(html) {
+			alert('Đã thêm sản phẩm vào giỏ hàng');
+		})
 }

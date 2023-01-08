@@ -1,4 +1,5 @@
 <?php
+
 namespace app\controllers;
 
 use Yii;
@@ -10,7 +11,6 @@ use app\models\ContactForm;
 use app\models\Newuser;
 use app\models\Product;
 use app\models\Productdetail;
-use app\models\Img;
 
 class SiteController extends Controller
 {
@@ -99,27 +99,15 @@ class SiteController extends Controller
         return $this->renderAjax('content', [
             'url' => Yii::$app->homeUrl,
             'products' => $noibat,
-            'check' => $check
+
         ]);
     }
 
     public function actionProductdetail($id)
     {
-        $product = Product::findOne($id);
-        $productDetail = Productdetail::getProductDetail($id);
-        $imgProduct = Img::find()->where('ID_PROC=' . $id)->all();
-        $type = 'SORT_DESC';
-        $noibat = Product::ProductNoiBat(4, $type);
-        $products = $this->renderAjax('content2', [
-            'url' => Yii::$app->homeUrl,
-            'products' => $noibat,
-            'check' => 1
-        ]);
+        $productDetail = Productdetail::findOne($id);
         return $this->render('productdetail', [
-            'productdetails' => $productDetail,
-            'product' => $product,
-            'img' => $imgProduct,
-            'listproduct' => $products
+            'productdetails' => $productDetail
         ]);
     }
 
@@ -129,7 +117,7 @@ class SiteController extends Controller
         $session->open();
         $cart = array();
         // chưa có giỏ hàng
-        if (! isset($session['cart'])) {
+        if (!isset($session['cart'])) {
             $cart[$id] = 1;
             $session['cart'] = $cart;
         } // đã có giỏ hàng
@@ -145,7 +133,7 @@ class SiteController extends Controller
                 }
             }
             // sản phẩm xuất hiện lần đầu tiên
-            if (! $check) {
+            if (!$check) {
                 $cart[$id] = 1;
             }
             $session['cart'] = $cart;
@@ -191,8 +179,7 @@ class SiteController extends Controller
      * Login action.
      *
      * @return Response|string
-     */
-    public function actionUpdateProductOnCart($id, $val)
+     */ public function actionUpdateProductOnCart($id, $val)
     {
         $session = Yii::$app->session;
         $session->open();
@@ -216,54 +203,11 @@ class SiteController extends Controller
             }
             $session['cart'] = $cart;
         }
+        return $this->redirect(['site/cart']);
     }
-
-    public function actionOrderProduct($name, $email, $address)
-    {
-        $session = Yii::$app->session;
-        if (isset($session['cart'])) {
-            $cart = $session['cart'];
-            $products = Product::find()->all();
-            $response = array();
-            foreach ($cart as $key => $value) {
-                foreach ($products as $product) {
-                    if ($key == $product["ID_PROC"]) {
-                        $productinfo = [
-                            "id" => $product["ID_PROC"],
-                            "name" => $product["NAME_PROC"],
-                            "price" => $product["PRICE"],
-                            "image" => $product["img"],
-                            "configuration" => '',
-                            "amount" => $value
-                        ];
-                        array_push($response, $productinfo);
-                    }
-                }
-            }
-            $str = $this->renderAjax('mail', [
-                'products' => $response,
-                'session' => $session['cart']
-            ]);
-        } else {
-
-            $str = $this->renderAjax('mail', [
-                'products' => "",
-                'session' => ""
-            ]);
-        }
-        Yii::$app->mailer->compose()
-            ->setFrom('quyennhuthanh@gmail.com')
-            ->setTo($email)
-            ->setSubject('XÁC NHẬN ĐƠN HÀNG')
-            ->setHtmlBody($str)
-            ->send();
-        $this->redirect('index');
-        echo $str;
-    }
-
     public function actionLogin()
     {
-        if (! Yii::$app->user->isGuest) {
+        if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
