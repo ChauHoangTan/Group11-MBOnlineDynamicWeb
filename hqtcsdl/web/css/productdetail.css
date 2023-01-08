@@ -1,0 +1,101 @@
+	/* style for products */
+
+.btn-brand{
+    padding: 0.5rem 2rem;
+    margin: 0.5rem 0.8rem;
+}
+
+.btn-filter{
+    background-color: #FFA200;
+
+    border: #FFA200;
+    border-radius: 5px;
+    padding: 0.5rem 1.5rem;
+    margin: 1rem 0.5rem;
+}
+
+.btn-sort{
+    background-color: #FFA200;
+}
+.product{
+    border-radius: 5px;
+    border : 1px lightgray solid;
+}
+
+.product:hover{
+    border: 2px #FFA200 solid ;
+   
+}
+
+.inch, .feature {
+    background-color : lightblue;
+}
+
+.present{
+    color : hwb(38 0% 14%);
+}
+
+.btn-viewMore{
+    background-color: lightgray;
+}
+
+/* style for product details */
+
+.bonus{
+    width: 95%;
+    margin: auto;
+}
+
+.promotion li, .present li{
+    margin: 1em 0;
+}
+
+.style{
+    width: 3em;
+}
+
+.field{
+    border: 1px solid lightblue;
+    width: 6em;
+    height: 8em;
+    margin: 0 1px;
+}
+
+.nav-link{
+    font-weight: bold;
+    color : #3c84e3;
+}
+
+.nav-link:hover{
+    font-weight: bold;
+    color : #FFA200
+    
+}
+
+#productDetailsTab li .active{
+    font-weight: bold;
+    color : #FFA200
+}
+
+.productName{
+    font-weight: bold;
+    color : #FFA200;
+}
+
+.featureDetails li{
+    margin: 1em 0em;
+    color: #3c84e3;
+    font-weight: bold;
+
+}
+
+.line{
+    width: 25em;
+    height: 0.5em;
+}
+.btn-navItem {
+    background-color: var(--orange) !important;
+    color: var(--white);
+    font-weight: 500;
+    transition: transform .2s;
+}

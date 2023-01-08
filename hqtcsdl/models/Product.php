@@ -1,5 +1,4 @@
 <?php
-
 namespace app\models;
 
 use Yii;
@@ -15,7 +14,9 @@ use Yii;
  */
 class Product extends \yii\db\ActiveRecord
 {
+
     /**
+     *
      * {@inheritdoc}
      */
     public static function tableName()
@@ -24,18 +25,38 @@ class Product extends \yii\db\ActiveRecord
     }
 
     /**
+     *
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['PRICE', 'ID_BRAND'], 'integer'],
-            [['img'], 'required'],
-            [['NAME_PROC', 'img'], 'string', 'max' => 255],
+            [
+                [
+                    'PRICE',
+                    'ID_BRAND'
+                ],
+                'integer'
+            ],
+            [
+                [
+                    'img'
+                ],
+                'required'
+            ],
+            [
+                [
+                    'NAME_PROC',
+                    'img'
+                ],
+                'string',
+                'max' => 255
+            ]
         ];
     }
 
     /**
+     *
      * {@inheritdoc}
      */
     public function attributeLabels()
@@ -45,13 +66,25 @@ class Product extends \yii\db\ActiveRecord
             'NAME_PROC' => 'Name Proc',
             'PRICE' => 'Price',
             'ID_BRAND' => 'Id Brand',
-            'img' => 'Img',
+            'img' => 'Img'
         ];
     }
-    public static function ProductNoiBat($amount){
-        $result = self::find()
-        ->limit($amount)
-        ->all();
+
+    public static function ProductNoiBat($amount, $type)
+    {
+        if ($type == "SORT_DESC") {
+            $result = self::find()->orderBy([
+                'PRICE' => SORT_ASC
+            ])
+                ->limit($amount)
+                ->all();
+        } else {
+            $result = self::find()->orderBy([
+                'PRICE' => SORT_DESC
+            ])
+                ->limit($amount)
+                ->all();
+        }
         return $result;
     }
 }

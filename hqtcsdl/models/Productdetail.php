@@ -65,9 +65,12 @@ class Productdetail extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+    public static function getProductDetail($id){
+        return Productdetail::findOne($id);
+    }
     public function attributeLabels()
     {
-        return [
+        return [    
             'ID_D_PROC' => 'Id D Proc',
             'DESCRIBE_PROC' => 'Describe Proc',
             'SOLD' => 'Sold',

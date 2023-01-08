@@ -8,17 +8,16 @@ use yii\helpers\Html;
 /** @var MonanController $monannoibats */
 
 $this->title = 'Trang chủ';
-$this->params['breadcrumbs'][] = $this->title;
 
 ?>
 <?php
 /* @var $this yii\web\View */
 
 $this->registerJsFile(Yii::$app->homeUrl . "js/index.js", [
-    'depends' => [
-        AppAsset::class
-    ],
-    'position' => \yii\web\View::POS_END
+'depends' => [
+AppAsset::class
+],
+'position' => \yii\web\View::POS_END
 ]);
 
 $url = Yii::$app->homeUrl;
@@ -44,7 +43,7 @@ function currency_format($number, $suffix = 'đ')
 }
 ?>
 
-<div class='site-about container-fluid'>
+<div class='site-about container-fluid ' style="margin-top:75px">
 		<section class="container-fluid">
 			<div id="carouselExampleControls" class="carousel slide"
 				data-bs-ride="carousel">
@@ -78,54 +77,25 @@ function currency_format($number, $suffix = 'đ')
 		<section class="container-fluid p-4 section-bg rounded my-5">
 			<div class="d-flex justify-content-between p-2 ">
 				<h1 class="text-light">SẢN PHẨM NỔI BẬT</h1>
-				<select class="form-select "style="width:15% ;height:40px" onchange="location = this.value;">
-					
-					<option value="index">Ngẫu nhiên</option>
-					<option value="decrease">Giá tăng dần</option>
-					<option value="increase">Gia giảm dần</option>
+				<select class="form-select " style="width: 15%; height: 40px" id="myselect"
+					onchange="sortProductbyPrice()">
+
+					<option selected value="">Sắp xếp theo</option>
+					<option value="SORT_DESC">Giá tăng dần</option>
+					<option value="SORT_ASC">Giá giảm dần</option>
 				</select>
 			</div>
-			<div class="row justify-content-center align-items-center g-2">
-				
-					<?php
-					
-    foreach ($products as $product) {
-        echo '<div class="col-3 body-text card p-2 product-item">';
-        echo '<a href="productdetail?id=' . $product->ID_PROC. '"';
-        echo '	class=" "> <img src="' . $url . 'image/'.$product->img.'"';
-        echo '	class="card-img-top " alt="..."></a>';
-        echo '<div class="card-body">';
-        echo '	<a href="#" class="card-title body-text h5">' . $product->NAME_PROC . '</a>';
-        echo '	<div class="text-secondary h3">' . currency_format($product->PRICE) . '</div>';
-        echo '	<div>';
-        echo '	<i class="fa fa-star checked"></i> <i class="fa fa-star checked"></i>';
-        echo '		<i class="fa fa-star checked"></i> <i class="fa fa-star checked"></i>';
-        echo '		<i class="fa fa-star"></i>';
-        echo '	</div>';
-        echo '	<div class="d-flex p-2">';
-        echo '		<a class="btn btn-secondary me-1" href=#>Mua ngay</a> <button';
-        echo '	class="btn btn-warning ms-1" onclick="' . 'addProductToCart(' . trim($product->NAME_PROC) . ')">Thêm vào <i';
-        echo '			class="fa-solid fa-cart-shopping"></i></button>';
-        echo '	</div></div> </div>';
-    }
-    ?>
-					
-				
-	
-	</div>
-			<div class="d-flex justify-content-center align-items-center ">
-				<a class="btn btn-light pt-2 mt-4 w-25"
-					href="<?php echo  $url.$controllerId.'/index?amount='.(count($products)+8)?>">
-					Xem thêm 8 sản phẩm <i class="fa-solid fa-arrow-down"></i>
-				</a>	
+			<div id="content"
+				class="">
+			
 			</div>
 		</section>
 	</div>
 </body>
-<script>var html = <?= Json::encode( $products);?>;
+<script>var html = <?= Json::encode( Yii::$app->session['amount']);?>;
 //alert(html);
 	
-</script>
+ </script> 
 <script
 	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
 	integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"

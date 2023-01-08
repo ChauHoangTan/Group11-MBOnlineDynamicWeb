@@ -73,37 +73,15 @@ AppAsset::register($this);
             ],
 
             [
-                'label' => 'Dropdown',
-                'items' => [
-                    [
-                        'label' => 'Quản lí đối tác',
-                        'url' => 'doitac'
-                    ],
-
-                    [
-                        'label' => 'Quản lí khách hàng',
-                        'url' => 'khachhang'
-                    ],
-
-                    [
-                        'label' => 'Quản lí Hợp Đồng',
-                        'url' => 'hopdong'
-                    ],
-
-                    [
-                        'label' => 'Quản lí Đơn đặt hàng',
-                        'url' => 'dondathang'
-                    ],
-
-                    [
-                        'label' => 'Quản lí cua hang',
-                        'url' => 'cuahang'
-                    ],
-
-                    [
-                        'label' => 'Quản lí tài xế ',
-                        'url' => 'taixe'
-                    ]
+                'label' => 'Điện thoại',
+                'url' => [
+                    '/admin/product'
+                ]
+            ],
+            [
+                'label' => 'Chi tiết điện thoại',
+                'url' => [
+                    '/admin/productdetail'
                 ]
             ],
 
@@ -131,34 +109,73 @@ AppAsset::register($this);
     </div>
 	</main>
 
-	<footer>
-		<!-- place footer here -->
-		<section class="container-fluid p-4 section-bg  mt-5 ">
-			<div class="row justify-content-around align-content-around">
-				<div class="col-3">
-					<a class="btn text-light ">Tích điểm tặng quà VIP</a> <a
-						class="btn text-light ">Lịch sữ nhận quà</a> <a
-						class="btn text-light ">Tìm hiểu về mua trả góp</a> <a
-						class="btn text-light ">Chính xác bảo hành</a>
-				</div>
-				<div class="col-3">
-					<a class="btn text-light ">Tích điểm tặng quà VIP</a> <a
-						class="btn text-light  ">Lịch sữ nhận quà</a> <a
-						class="btn text-light ">Tìm hiểu về mua trả góp</a> <a
-						class="btn text-light ">Chính xác bảo hành</a>
-				</div>
-				<div class="col-3">
-					<a class="btn text-light ">Tích điểm tặng quà VIP</a> <a
-						class="btn text-light ">Lịch sữ nhận quà</a> <a
-						class="btn text-light ">Tìm hiểu về mua trả góp</a> <a
-						class="btn text-light ">Chính xác bảo hành</a>
-				</div>
+		<footer class="footer-32892 pb-0">
 
+		<div class="container">
+			<div class="row">
+				<div class="col-md  mb-4 mb-md-0">
+					<h3>Thông tin chúng tôi</h3>
+					<p class="mb-4">Chính sách bảo mật này nhằm mục đích giúp bạn hiểu
+						rõ những thông tin chúng tôi thu thập, lý do chúng tôi thu thập và
+						cách bạn có thể cập nhật, quản lý, xuất và xóa thông tin của mình.</p>
+					<ul class="list-unstyled quick-info mb-4">
+						<li><a href="#" class="d-flex align-items-center"> <i
+								class="fa-solid fa-phone mx-3"></i> 1 291 3912 329
+						</a></li>
+						<li><a href="#" class="d-flex align-items-center"> <i
+								class="fa-solid fa-envelope  mx-3"></i> fit.hcmus@gmail.com
+						</a></li>
+					</ul>
 
+				</div>
+				<div class="col-md mb-4 mb-md-0">
+					<h3>Giới thiệu</h3>
+					<ul class="list-unstyled tweets">
+						<li class="d-flex">
+							<div class="mr-4">
+								<span class="icon icon-twitter"></span>
+							</div>
+							<div>Chúng tôi phát triển một loạt các dịch vụ giúp hàng triệu
+								người hàng ngày khám phá và tương tác với thế giới theo những
+								cách mới. Các dịch vụ của chúng tôi gồm có.</div>
+						</li>
+						<li class="d-flex">
+							<div class="mr-4">
+								<span class="icon icon-twitter"></span>
+							</div>
+							<div>Các ứng dụng, trang web và thiết bị của Google, chẳng hạn
+								như Tìm kiếm, YouTube và Google Home.</div>
+						</li>
+						<li class="d-flex">
+							<div class="mr-4">
+								<span class="icon icon-twitter"></span>
+							</div>
+							<div>Các sản phẩm tích hợp vào các ứng dụng và trang web của bên
+								thứ ba, chẳng hạn như dịch vụ quảng cáo, phân tích và Google
+								Maps đã nhúng</div>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-3 mb-4 mb-md-0">
+					<h3>Nền tảng khác</h3>
+					<div class="row gallery ">
+
+						<div class="col-4 h1 m-1  ">
+							<a href="#"><i class="btn-me fa-brands fa-google"></i></a>
+						</div>
+						<div class="col-4 h1 m-1 ">
+							<a href="#"><i class=" btn-me fa-brands fa-google-play"></i></a>
+						</div>
+						<div class="col-4 h1 m-1">
+							<a href="#"><i class="btn-me fa-brands fa-facebook"></i></a>
+						</div>
+						<div class="col-4 h1 m-1">
+							<a href="#"><i class=" btn-me fa-brands fa-instagram"></i></a>
+						</div>
+					</div>
+				</div>
 			</div>
-
-		</section>
-
+		</div>
 
 	</footer>
 
